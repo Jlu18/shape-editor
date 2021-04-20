@@ -1,7 +1,5 @@
 /*
-
     Matrix
-
 */
 function projection(width,height,depth=400){
     return translate(
@@ -25,7 +23,6 @@ function translate(m,p){
     ]
     return multiply(m,t_matrix);
 }
-
 
 function multiply(m, n){
     //m

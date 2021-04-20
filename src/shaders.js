@@ -16,9 +16,9 @@ void main(){
 /*
     Shader Functions
 */
-function createShaderProgram(gl){
-    let vert = createShader(gl,vertexshader,gl.VERTEX_SHADER);
-    let frag = createShader(gl,fragmentshader,gl.FRAGMENT_SHADER);
+function createShaderProgram(){
+    let vert = createShader(vertexshader,gl.VERTEX_SHADER);
+    let frag = createShader(fragmentshader,gl.FRAGMENT_SHADER);
 
     let program = gl.createProgram();
     gl.attachShader(program,vert);
@@ -28,7 +28,7 @@ function createShaderProgram(gl){
     return program;
 }
 
-function createShader(gl,src, type){
+function createShader(src, type){
     let id = gl.createShader(type);
     gl.shaderSource(id, src);
     gl.compileShader(id);
