@@ -37,6 +37,7 @@ function mousemove(e){
  * @param {Number[]} ppts Array of verticies of polygon. Single array with each 3 elements represents xyz.
  * @param {Number} n Number of verticies in ppts.
  * @param {Number[]} pt Array of length 2 with each represents xy.
+ * 
  * @returns {Boolean} true if point intersected with given polygon, false otherwise.
  */
 function pointInPolygon(ppts,n,pt){
@@ -64,14 +65,24 @@ function pointInPolygon(ppts,n,pt){
 
 /**
  * Convert the screen coordinate to canvas coordinate
+ * 
+ * @param {Number} x
+ * @param {Number} y
+ * 
+ * @return {Number[]} canvas coordinate
  */
 function screenToEditor(x,y){
     return [x-canvas.width/2,y-canvas.height/2];
 }
 
 /**
+ * Convert the canvas coordinate to screen coordinate 
  * 
+ * @param {Number} x
+ * @param {Number} y
+ * 
+ * @return {Number[]} screen coordinate
  */
 function editorToScreen(x,y){
-
+    return [x+canvas.width/2,y+canvas.height/2];
 }
