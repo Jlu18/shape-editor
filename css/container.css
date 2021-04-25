@@ -1,0 +1,45 @@
+body {
+	overflow: auto; 
+	height: 1%;
+	min-width:850px;
+}
+
+#container{
+    position:absolute;
+	height:100%;
+	width: 100%;
+	min-width:850px;
+	background-color:none;
+}
+
+.options {
+    position:absolute;
+	padding-bottom:0px;
+	width: 110px;
+    margin:140px 30px;
+	border:1px solid rgb(0,0,0);
+	background: rgb(88, 207, 162);
+}
+
+#tools {
+	top:0px;
+	left:50px;
+}
+
+#shapes {
+    top:250px;
+	left:50px;
+}
+
+#canvas {
+    /*	border:2px solid #cc0000;*/
+	padding:0px;
+	z-index:-1;
+	width:640px;
+	height:480px;
+	margin:0px auto;
+	margin-top:105px;
+	position:absolute;
+	left:50%;
+	margin-left:-250px;
+}

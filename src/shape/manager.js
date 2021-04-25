@@ -1,3 +1,0 @@
-/*
-    Script where it manages all the shapes in the editor
-*/

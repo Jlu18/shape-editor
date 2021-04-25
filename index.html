@@ -3,16 +3,46 @@
     <head>
         <meta charset="UTF-8">
         <title>Shape Editor</title>
-        <script src="https://greggman.github.io/webgl-lint/webgl-lint.js" crossorigin></script>
-        <script type="text/javascript" src="src/shape/shape.js"></script>
-        <script type="text/javascript" src="src/util/event.js"></script>
-        <script type="text/javascript" src="src/util/shaders.js"></script>
-        <script type="text/javascript" src="src/util/matrix.js"></script>
-        <script type="text/javascript" src="src/index.js"></script>
+        <link rel="stylesheet" href="css/container.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <!-- <script src="https://greggman.github.io/webgl-lint/webgl-lint.js" crossorigin></script> -->
     </head>
     <body style="margin: 0; padding: 0; background-color: ivory;">
-        <canvas style="position: absolute; width:100%; height:100%;" id="canvas">
-            This web browser doesn't support WebGL
-        </canvas>
+        <div id="container" class="">
+            <div>
+                <canvas style="position: absolute;" width="640" height="480" id="canvas">
+                    This web browser doesn't support WebGL
+                </canvas>
+            </div>
+            <div id=shapes class="options">
+                <h3>Shapes</h3>
+                    <ul>
+                        <li><a href="#">Line</a>     </li>
+                        <li><a href="#">Triangle</a> </li>
+                        <li><a href="#">Rectangle</a></li>
+                        <li><a href="#">Circle</a>   </li>
+                        <li><a href="#">Curve</a>    </li>
+                        <li><a href="#">Polyline</a> </li>
+                        <li><a href="#">Polygon</a>  </li>
+                    </ul> 
+            </div>
+            <div id=tools class="options">
+                <h3>Tools</h3>
+                    <ul>
+                        <li><a href="#"> New</a></li>
+                        <li><a href="#"> Save</a></li>
+                        <li><a href="#"> Open</a></li>
+                        <li><a href="#"> Export</a></li>
+                        <li><a href="#"> Undo</a></li>
+                        <li><a href="#"> Move</a></li>
+                        <li><a href="#"> Scale</a></li>
+                        <li><a href="#"> Rotate</a></li>
+                    </ul> 
+            </div>
+        </div>
     </body>
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="./compiled/shape_editor.js"></script>
 </html>
