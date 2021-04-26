@@ -38,7 +38,7 @@ class Renderer{
     bindUniform(type,name,value){
         const loc = this.uniform[name];
         if(!loc){
-            console.error("bindUniform() Error: unkown uniform name " + name);
+            console.error("bindUniform() Error: Unknown uniform name " + name);
             return;
         } 
         switch(uniformType[type]){
@@ -56,7 +56,7 @@ class Renderer{
                 gl.uniformMatrix4fv(loc,false,value)
                 break;
             default:
-                console.error("bindUniform() Error: Unkown type: " + type);
+                console.error("bindUniform() Error: Unknown type: " + type);
                 return;
         }
     }

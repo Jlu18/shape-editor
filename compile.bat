@@ -1,5 +1,5 @@
 java -jar closure-compiler/compiler.jar^
- --js src/math/Matrix.js^
+ --js src/math/matrix.js^
  --js src/shader/basic_fshader.js^
  --js src/shader/basic_vshader.js^
  --js src/manager/ShaderManager.js^

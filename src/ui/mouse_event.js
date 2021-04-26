@@ -47,8 +47,8 @@ function mousemove(e){
 /**
  * Determine whether a point(pt) lies within the polygon(ppts)
  * 
- * @param {Number[]} ppts Array of verticies of polygon. Single array with each 3 elements represents xyz.
- * @param {Number} n Number of verticies in ppts.
+ * @param {Number[]} ppts Array of vertices of polygon. Single array with each 3 elements represents xyz.
+ * @param {Number} n Number of vertices in ppts.
  * @param {Number[]} pt Array of length 2 with each represents xy.
  * 
  * @returns {Boolean} true if point intersected with given polygon, false otherwise.
