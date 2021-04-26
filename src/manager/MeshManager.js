@@ -4,12 +4,15 @@
 class MeshManager{
     constructor(){
         this.list = new Object();
+        this.count = 0;
     }
     add(el){
         if(!(el instanceof Mesh)){
             console.error("MeshManager add() Error: " + Object.prototype.toString(e) + "is not Mesh");
             return;
         }
+        el.uid = el.type + String(this.count);
+        ++this.count;
         this.list[el.uid] = el;
     }
     delete(id){
@@ -20,6 +23,11 @@ class MeshManager{
         gl.deleteBuffer(this.list[id].vid);
         delete this.list[id];
     }
+    /**
+     * 
+     * @param {string} id 
+     * @returns {Mesh}
+     */
     get(id){
         if(!this.list[id]){ 
             console.warn("MeshManager get() Warn: " + id + "Not found");
@@ -27,7 +35,7 @@ class MeshManager{
         }
         return this.list[id];
     }
-    getListName(){
+    getMeshNames(){
         return Object.keys(this.list);
     }
     reset(){

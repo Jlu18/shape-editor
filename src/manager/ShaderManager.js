@@ -17,9 +17,9 @@ class Shader{
         gl.attachShader(program,vID);
         gl.attachShader(program,fID);
 
-        for(let i in attribs){
-            gl.bindAttribLocation(program, i, attribs[i]);
-        }
+        attribs.forEach((a,i)=>{
+            gl.bindAttribLocation(program,i,a);
+        })
 
         gl.linkProgram(program);
         this.program = program;
@@ -39,5 +39,11 @@ class Shader{
             return null;
         } 
         return id;
+    }
+    bindAttrib(id,attrib,size,type){
+        gl.bindBuffer(gl.ARRAY_BUFFER,id);
+        gl.enableVertexAttribArray(attrib)
+        gl.vertexAttribPointer(attrib,size,type,false,0,0);
+        gl.bindBuffer(gl.ARRAY_BUFFER,null);
     }
 }

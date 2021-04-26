@@ -5,7 +5,12 @@
         <title>Shape Editor</title>
         <link rel="stylesheet" href="css/container.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-        <!-- <script src="https://greggman.github.io/webgl-lint/webgl-lint.js" crossorigin></script> -->
+        <!-- External Scripts -->
+        <script src="https://greggman.github.io/webgl-lint/webgl-lint.js" crossorigin></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <!-- Scripts -->
+        <script src="./compiled/shape_editor.js"></script>
     </head>
     <body style="margin: 0; padding: 0; background-color: ivory;">
         <div id="container" class="">
@@ -17,13 +22,13 @@
             <div id=shapes class="options">
                 <h3>Shapes</h3>
                     <ul>
-                        <li><a href="#">Line</a>     </li>
-                        <li><a href="#">Triangle</a> </li>
-                        <li><a href="#">Rectangle</a></li>
-                        <li><a href="#">Circle</a>   </li>
-                        <li><a href="#">Curve</a>    </li>
-                        <li><a href="#">Polyline</a> </li>
-                        <li><a href="#">Polygon</a>  </li>
+                        <li class="line">     <a href="#">Line</a>     </li>
+                        <li class="triangle"> <a href="#">Triangle</a> </li>
+                        <li class="rectangle"><a href="#">Rectangle</a></li>
+                        <li class="circle">   <a href="#">Circle</a>   </li>
+                        <li class="curve">    <a href="#">Curve</a>    </li>
+                        <li class="polyline"> <a href="#">Polyline</a> </li>
+                        <li class="polygon">  <a href="#">Polygon</a>  </li>
                     </ul> 
             </div>
             <div id=tools class="options">
@@ -41,8 +46,4 @@
             </div>
         </div>
     </body>
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="./compiled/shape_editor.js"></script>
 </html>
