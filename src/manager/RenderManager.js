@@ -28,8 +28,10 @@ class Renderer{
             m_shader.bindAttrib(m.vid,0,3,gl.FLOAT);//position
             this.bindUniform("MAT4","uMatrix",m.matrix)
             this.bindUniform("VEC4","uColor",m.color); //color
-            gl.drawArrays(gl.TRIANGLES,0,m.len);
-            m.m = false;
+            //gl.drawArrays(gl.TRIANGLES,0,m.len);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.iid);
+            gl.drawElements(gl.TRIANGLES,m.len,gl.UNSIGNED_SHORT,0);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
         });
     }
     findUniform(locs){

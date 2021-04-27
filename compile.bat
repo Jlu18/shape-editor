@@ -5,7 +5,7 @@ java -jar closure-compiler/compiler.jar^
  --js src/manager/ShaderManager.js^
  --js src/manager/MeshManager.js^
  --js src/manager/RenderManager.js^
- --js src/shape/Mesh.js^
+ --js src/mesh/Mesh.js^
  --js src/ui/mesh_event.js^
  --js src/ui/mouse_event.js^
  --js src/index.js^

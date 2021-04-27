@@ -33,21 +33,22 @@ function update_selected(name){
 }
 
 function create_mesh(name,attribs){
+    console.log(m_mesh.getMeshNames());
     switch(name){
         case "line":
             return null;
         case "triangle":
             return m_mesh.add(new Triangle(attribs));
         case "rectangle":
-            return null;
+            return m_mesh.add(new Rectangle(attribs));
         case "circle":
-            return null;
+            return m_mesh.add(new Circle(attribs));
         case "curve":
             return null;
         case "polyline":
             return null;
         case "polygon":
-            return null;
+            return m_mesh.add(new Polygon(attribs));
         default:
             console.warn("create_shape() Warn: Unknown shape name " + name);
             return null;
