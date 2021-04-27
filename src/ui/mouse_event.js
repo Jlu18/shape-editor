@@ -1,47 +1,21 @@
-/**
- * 
- * @param {HTMLCanvasElement} canvas 
- */
-function initEvent(canvas){
-    canvas.addEventListener("mousedown", mousedown);
-    canvas.addEventListener("mouseup"  , mouseup);
-    canvas.addEventListener("mousemove", mousemove);
-
-    document.addEventListener("keydown",(e)=>{
-        //undo
-        if(e.ctrlKey && e.code === "KeyZ"){
-            console.log("undo");
-        }
-    })
-}
-
-
 let flag = 0;
 let pmp = []; //previous mouse position;
 
 function mousedown(e){
-    let spos = screenToEditor(e.x,e.y);
-    if(pointInPolygon(shape.rpts,shape.len,spos)){
-        pmp = [e.x,e.y];
-        flag = 1;
-        console.log("mouse inside the triangle");
-    }else{
-        console.log("not inside");
-    }
+    
 }
 
 function mouseup(e){
-    shape.updateRealPts();
-    flag = 0;
+    if(selected.name !== "none"){
+        create_mesh(selected.name,{matrix:[...selected.mesh.matrix]});
+    }
+        
 }
 
 function mousemove(e){
-    if(flag === 1){
-        const diff = [e.x-pmp[0], e.y-pmp[1], 0];
-        console.log(diff[0] + " " + diff[1]);
-        shape.m = translate(shape.m,diff);
-        pmp = [e.x, e.y];
-    }   
+    if(selected.mesh){
+        selected.mesh.matrix = moveto(selected.mesh.matrix,[e.offsetX,e.offsetY,0]);
+    }
 }
 
 /**

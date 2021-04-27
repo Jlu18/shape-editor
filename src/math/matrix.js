@@ -2,16 +2,12 @@
     Matrix
 */
 function projection(width,height,depth=400){
-    return translate(
-    [
+    return [
         2/width,    0,        0,     0,
            0,   -2/height,    0,     0,
            0,       0,     2/depth,  0,
           -1,       1,        0,     1,
-    ],
-    [
-        width/2, height/2, 0
-    ]);
+    ];
 }
 
 function identity(){
@@ -31,6 +27,13 @@ function translate(m,p){
         p[0], p[1], p[2], 1
     ]
     return multiply(m,t_matrix);
+}
+
+function moveto(m,p){
+    m[12] = 0;
+    m[13] = 0;
+    m[14] = 0;
+    return translate(m,p);
 }
 
 function multiply(m, n){

@@ -10,6 +10,11 @@ let height;
 let m_mesh;
 let m_shader;
 let m_renderer;
+let selected = {
+    name:"none",
+    id:null,
+    mesh:null
+};
 
 function start(){
     console.log("start");

@@ -7,6 +7,7 @@ java -jar closure-compiler/compiler.jar^
  --js src/manager/RenderManager.js^
  --js src/shape/Mesh.js^
  --js src/ui/mesh_event.js^
+ --js src/ui/mouse_event.js^
  --js src/index.js^
  --js src/init.js^
  --js_output_file compiled/shape_editor.js^

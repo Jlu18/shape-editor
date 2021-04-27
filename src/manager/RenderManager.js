@@ -15,6 +15,8 @@ class Renderer{
         gl.useProgram(m_shader.program);
 
         this.projection = projection(width,height);
+
+        //gl.disable(gl.DEPTH_TEST);
     }
     draw(){
         gl.viewport(0,0,width,height);

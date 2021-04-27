@@ -2,27 +2,46 @@
 file where it holds all the datas of shape that created in the editor
 */
 class Mesh{
-    constructor(type,pts,n){
-        if(!Array.isArray(pts)){
-            console.error("Mesh Error: Supplied vertex or index buffer is not array.");
+    constructor(){ 
+        this.type= "Mesh";
+    }
+    init(){
+        if(this.pts){
+            //create position buffer id
+            if(!this.vid){
+                this.vid = gl.createBuffer();              //VBO ID
+            }
+            gl.bindBuffer(gl.ARRAY_BUFFER,this.vid);
+            gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(this.pts),gl.STATIC_DRAW);
+            gl.bindBuffer(gl.ARRAY_BUFFER,null);
+        }
+    }
+    setValue(attribs){
+        if(!attribs){
             return;
         }
-        this.type = type;
-        //create position buffer id
-        this.vid = gl.createBuffer();              //VBO ID
-        gl.bindBuffer(gl.ARRAY_BUFFER,this.vid);
-        gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(pts),gl.STATIC_DRAW);
-        gl.bindBuffer(gl.ARRAY_BUFFER,null);
-
-        this.pts = pts;                 //verticies
-        this.len = n;                   //length of verticies
-        this.color = [1,0,0,1];
-
-        this.matrix = identity();            //transformation matrix
+        for(let key in attribs){
+            // if(this[key]===undefined){
+            //     console.warn("Mesh Warn: " + key + " is not param of Mesh");
+            // }
+            this[key] = attribs[key];
+        }
     }
 }
 
-function triangle(pt1=[-12,13.48,0],pt2=[12,13.48,0],pt3=[0,-13.48,0]){
-    //polygon with 3 pts
-    return new Mesh("triangle",[...pt1,...pt2,...pt3],3);
+class Triangle extends Mesh {
+    constructor(attribs){
+        super();
+        this.type = "triangle";
+        this.pts  = [
+            -12, 13.48, 0,
+             12, 13.48, 0,
+              0,-13.48, 0
+        ];
+        this.len = 3;
+        this.color = [1,0,0,1];
+        this.matrix = identity();
+        this.setValue(attribs);
+        this.init();
+    }
 }

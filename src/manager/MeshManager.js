@@ -8,16 +8,17 @@ class MeshManager{
     }
     add(el){
         if(!(el instanceof Mesh)){
-            console.error("MeshManager add() Error: " + Object.prototype.toString(e) + "is not Mesh");
-            return;
+            console.error("MeshManager add() Error: " + typeof el + "is not Mesh");
+            return null;
         }
         el.uid = el.type + String(this.count);
         ++this.count;
         this.list[el.uid] = el;
+        return el.uid;
     }
     delete(id){
         if(!this.list[id]) {
-            console.error("MeshManager remove() Error: " + id + " doesn't exist in list");
+            console.error("MeshManager delete() Error: " + id + " doesn't exist in list");
             return null;
         }
         gl.deleteBuffer(this.list[id].vid);
