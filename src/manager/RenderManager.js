@@ -28,7 +28,8 @@ class Renderer{
             const m = m_mesh.get(n);
             if(m.isLine)type=gl.LINES;
             m_shader.bindAttrib(m.vid,0,3,gl.FLOAT);//position
-            this.bindUniform("MAT4","uMatrix",m.matrix)
+            const tm = multiply(multiply(m.matrix,m.smatrix),m.rmatrix);
+            this.bindUniform("MAT4","uMatrix",tm)
             this.bindUniform("VEC4","uColor",m.color); //color
             
             if(m.type === "curve"){

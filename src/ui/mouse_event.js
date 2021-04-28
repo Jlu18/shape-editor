@@ -1,15 +1,3 @@
-function mouseenter(e){
-
-}
-
-function mouseleave(e){
-
-}
-
-function mousedown(e){
-    
-}
-
 function mousedclick(e){
     //Done drawing polyline
     if(selected.type === "polyline"){

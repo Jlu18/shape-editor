@@ -39,6 +39,34 @@ function moveto(m,p){
     return translate(m,p);
 }
 
+function rotateZ(m,z){
+    const r = degToRad(z);
+    const c = Math.cos(r);
+    const s = Math.sin(r);
+
+    const z_matrix = [
+        c, s, 0, 0,
+       -s, c, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+    ];
+    return multiply(m,z_matrix);
+}
+
+function degToRad(deg){
+    return deg*Math.PI/180;
+}
+
+function scale(m,s){
+    const s_matrix = [
+        s[0], 0, 0, 0,
+        0, s[1], 0, 0,
+        0, 0, s[2], 0,
+        0, 0, 0, 1
+    ];
+    return multiply(m,s_matrix);
+};
+
 function multiply(m, n){
     //m
     const m00 = m[0];

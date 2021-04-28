@@ -6,6 +6,8 @@ class Mesh{
         this.type= "Mesh";
         this.color = [1,0,0,1];
         this.matrix = identity();
+        this.smatrix = identity();
+        this.rmatrix = identity();
         this.vpts = null;
         this.ipts = null; 
     }

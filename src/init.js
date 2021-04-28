@@ -29,6 +29,7 @@ $(document).ready(function(){
     $("#toolbox").draggable({handle: 'h3', containment: '#container'});
     $("#meshbox").draggable({handle: 'h3', containment: '#container'});
     $("#transformationbox").draggable({handle: 'h3', containment: '#container'});
+    $("#colorbox").draggable({handle: 'h3', containment: '#container'});
 
     //Shape editor
     $("li.line"     ).click((e)=>{select_mesh(e.currentTarget);});
@@ -41,7 +42,7 @@ $(document).ready(function(){
     //$("li.triangle").find("a").click();
     
     //Tool Editor
-    document.getElementById("fileinput").addEventListener("change", open, false);
+    document.getElementById("fileinput").addEventListener("change", open);
     $("li.new"      ).click((e)=>{clear()});
     $("li.save"     ).click((e)=>{save()});
     $("li.export"   ).click((e)=>{exportImg()});
@@ -51,12 +52,38 @@ $(document).ready(function(){
     $("li.scale"    ).click((e)=>{select_tool(e.currentTarget)});
     $("li.rotate"   ).click((e)=>{select_tool(e.currentTarget)});
 
+    //Transformation event
+    document.getElementById("move-x").addEventListener("input", moveX);
+    document.getElementById("move-y").addEventListener("input", moveY);
+    document.getElementById("ctrl-1x").addEventListener("input", ctrlPt1X);
+    document.getElementById("ctrl-1y").addEventListener("input", ctrlPt1Y);
+    document.getElementById("ctrl-2x").addEventListener("input", ctrlPt2X);
+    document.getElementById("ctrl-2y").addEventListener("input", ctrlPt2Y);
+    document.getElementById("scale-x").addEventListener("input", scaleX);
+    document.getElementById("scale-y").addEventListener("input", scaleY);
+    document.getElementById("rotateinput").addEventListener("input", rotate);
+
+    const lx= ["move-x","ctrl-1x","ctrl-2x"];
+    const ly= ["move-y","ctrl-1y","ctrl-2y"];
+    for(let i= 0; i < 3; i++){
+        let xM = document.getElementById(lx[i]);
+        let yM = document.getElementById(ly[i]);
+        xM.min = 0;
+        xM.max = width;
+        yM.min = 0;
+        yM.max = height;
+    }
+    
+    document.getElementById("color-picker").addEventListener("change", color);
+    //mouse event
     canvas.addEventListener("mousemove",mousemove);
-    canvas.addEventListener("mousedown",mousedown);
     canvas.addEventListener("mouseup",mouseup);
-    canvas.addEventListener("mouseenter",mouseenter);
-    canvas.addEventListener("mouseleave",mouseleave);
+    // canvas.addEventListener("mousedown",mousedown);
+    // canvas.addEventListener("mouseenter",mouseenter);
+    // canvas.addEventListener("mouseleave",mouseleave);
     canvas.addEventListener("dblclick",mousedclick);
     canvas.addEventListener("contextmenu",(e)=>{e.preventDefault();e.stopPropagation();});
+    
+    //end of intialization
     start(); 
 });

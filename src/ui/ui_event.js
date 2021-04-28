@@ -7,6 +7,7 @@
     reset_selections($("#shapes"));
     reset_selections($("#transforms"));
     reset_selections($("#meshes"));
+    reset_transformation()
 
     if(selected.type === e.className){
         selected.type = "none";
@@ -50,22 +51,24 @@ function select_tool(tool){
     
     el.find("a").addClass("selected");
 
-    selected.type="none";
+    if(selected.type !== "none" && selected.type !== "exist"){
+        selected.type = "none";
+    }
 
     //transformaiton scale
+    reset_transformation();
+    $(`#${tool.className}`).removeClass("hide");
+    $(`#${tool.className}`).addClass("show");
+}
+
+function reset_transformation(){
     $("#transformationbox").children().each((_i,e)=>{
         if($(e).hasClass("show")){
             $(e).removeClass("show");
             $(e).addClass("hide");
         }
     })
-    $(`#${tool.className}`).removeClass("hide");
-    $(`#${tool.className}`).addClass("show");
 }
-
-
-
-
 function reset_selections(el) {
     $(el).children().each((_i,e)=>{
         if ($(e).find("a").hasClass('selected')) {
