@@ -31,11 +31,12 @@ $(document).ready(function(){
     $("li.curve"    ).click((e)=>{select_mesh(e.currentTarget);});
     $("li.polyline" ).click((e)=>{select_mesh(e.currentTarget);});
     $("li.polygon"  ).click((e)=>{select_mesh(e.currentTarget);});
-    $("li.triangle").find("a").click();
+    //$("li.triangle").find("a").click();
 
     canvas.addEventListener("mousemove",mousemove);
     canvas.addEventListener("mousedown",mousedown);
     canvas.addEventListener("mouseup",mouseup);
-
+    canvas.addEventListener("dblclick",mousedclick);
+    canvas.addEventListener("contextmenu",(e)=>{e.preventDefault();e.stopPropagation();});
     start(); 
 });

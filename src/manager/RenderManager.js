@@ -24,13 +24,15 @@ class Renderer{
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         m_mesh.getMeshNames().forEach(n=>{
+            let type = gl.TRIANGLES;
             const m = m_mesh.get(n);
+            if(m.isLine)type=gl.LINES;
             m_shader.bindAttrib(m.vid,0,3,gl.FLOAT);//position
             this.bindUniform("MAT4","uMatrix",m.matrix)
             this.bindUniform("VEC4","uColor",m.color); //color
             //gl.drawArrays(gl.TRIANGLES,0,m.len);
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.iid);
-            gl.drawElements(gl.TRIANGLES,m.len,gl.UNSIGNED_SHORT,0);
+            gl.drawElements(type,m.ilen,gl.UNSIGNED_SHORT,0);
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
         });
     }

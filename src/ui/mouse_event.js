@@ -1,20 +1,38 @@
-let flag = 0;
-let pmp = []; //previous mouse position;
-
 function mousedown(e){
     
 }
 
-function mouseup(e){
-    if(selected.name !== "none"){
-        create_mesh(selected.name,{matrix:[...selected.mesh.matrix]});
+function mousedclick(e){
+    if(selected.name === "polyline"){
+        update_selected(selected.name);
     }
-        
+}
+
+function mouseup(e){
+    //left click
+    if(e.button === 0){
+        if(selected.name !== "none"){
+            if(selected.mesh.isLine){
+                selected.mesh.newPts(e.offsetX,e.offsetY);
+            }
+            if(selected.mesh.done){
+                update_selected(selected.name);//,{matrix:moveto(identity(),[e.offsetX,e.offsetY])}
+            }
+        }
+    }else if(e.button === 2){
+        if(selected.name === "line" && selected.mesh.vlen < 2){
+            m_mesh.delete(selected.id);
+        }
+    }
 }
 
 function mousemove(e){
     if(selected.mesh){
-        selected.mesh.matrix = moveto(selected.mesh.matrix,[e.offsetX,e.offsetY,0]);
+        if(selected.mesh.isLine){
+            selected.mesh.movePts(e.offsetX,e.offsetY);
+        }else{
+            selected.mesh.matrix = moveto(selected.mesh.matrix,[e.offsetX,e.offsetY,0]);
+        }
     }
 }
 
