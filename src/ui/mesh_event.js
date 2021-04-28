@@ -1,32 +1,29 @@
-/**
- * Change the type of mesh user can instantiate on canvas
- * @param {string} type 
- */
-function change_mesh_created(type){
-    selected.type = type;
-    if(!selected.created && selected.id){
+function select_exist(e){
+    if(selected.isLine){
         m_mesh.delete(selected.id);
-        delete selected.id;
+        selected.type ="none";
+        selected.id = null;
+        selected.isLine = false;
     }
-    if(type !== "none"){
-        if(type==="curve"){
-            $("#curve").removeClass("hide");   
-            $("#curve").addClass("show");   
-        }else{
-            $("#curve").removeClass("show");   
-            $("#curve").addClass("hide");   
-        }
-        selected.id = create_mesh(type);
-        if(selected.id){
-            selected.mesh = m_mesh.get(selected.id);
-            selected.created = false;
-        }
-    }
+    selected.mesh = m_mesh.get(e.className);
+    if(!selected.mesh)return;
+    
+    console.log(e.className);
+    reset_selections("#shapes");
+    reset_selections("#meshes");
+    
+    $("."+e.className).find("a").addClass("selected");
+    
+    selected.type = "exist";
+    selected.id = e.className;
 }
 
 function create_mesh(type,attribs){
     //console.log("new mesh: " + type);
     switch(type){
+        case "exist":
+        case "none":
+            return;
         case "line":
             return m_mesh.add(new Line(attribs));
         case "triangle":
@@ -42,7 +39,7 @@ function create_mesh(type,attribs){
         case "polygon":
             return m_mesh.add(new Polygon(attribs));
         default:
-            console.warn("create_shape() Warn: Unknown shape type " + type);
+            console.warn("create_meshs() Warn: Unknown shape type " + type);
             return null;
     }
 }

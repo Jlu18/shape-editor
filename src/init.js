@@ -41,11 +41,12 @@ $(document).ready(function(){
     //$("li.triangle").find("a").click();
     
     //Tool Editor
+    document.getElementById("fileinput").addEventListener("change", open, false);
     $("li.new"      ).click((e)=>{clear()});
     $("li.save"     ).click((e)=>{save()});
-    document.getElementById("fileinput").addEventListener("change", open, false);
     $("li.export"   ).click((e)=>{exportImg()});
     $("li.undo"     ).click((e)=>{});
+    $("li.delete"   ).click((e)=>{remove_mesh()});
     $("li.move"     ).click((e)=>{select_tool(e.currentTarget)});
     $("li.scale"    ).click((e)=>{select_tool(e.currentTarget)});
     $("li.rotate"   ).click((e)=>{select_tool(e.currentTarget)});

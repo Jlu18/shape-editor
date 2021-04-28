@@ -14,8 +14,7 @@ class MeshManager{
         el.uid = el.type + String(this.count);
         ++this.count;
         this.list[el.uid] = el;
-        $("#meshes").append(`<li id="${el.uid}"><a href="#"> ${el.uid} </a></li>`);
-        $(`#${el.uid}`).click(e=>{console.log(e.target);});
+
         return el.uid;
     }
     delete(id){
@@ -24,7 +23,6 @@ class MeshManager{
             return null;
         }
         gl.deleteBuffer(this.list[id].vid);
-        $(`#${id}`).remove();
         delete this.list[id];
     }
     /**

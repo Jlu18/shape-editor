@@ -1,10 +1,56 @@
+/**
+ * 
+ * @param {stinrg|HTMLElement}e
+ */
+ function select_mesh(e){
+    let el = $(e);
+    reset_selections($("#shapes"));
+    reset_selections($("#transforms"));
+    reset_selections($("#meshes"));
+
+    if(selected.type === e.className){
+        selected.type = "none";
+        return;
+    }
+    el.find("a").addClass("selected");
+    selected.type = e.className;
+    selected.isLine = false;
+    if(selected.type === "line" || selected.type === "polyline" ){
+        selected.isLine = true;
+        selected.id = create_mesh(selected.type);
+        selected.mesh = m_mesh.get(selected.id);
+    }
+    if(selected.type==="curve"){
+        $("#curve").removeClass("hide");   
+        $("#curve").addClass("show");   
+    }else{
+        $("#curve").removeClass("show");   
+        $("#curve").addClass("hide");   
+    }
+    
+}
+
+function add_mesh(id){
+    $("#meshes").append(`<li class="${id}"><a href="#"> ${id} </a></li>`);
+    $(`.${id}`).click(e=>{select_exist(e.currentTarget);});
+}
+
+function remove_mesh(){
+    if(selected.type === "exist"){
+        m_mesh.delete(selected.id);
+        $(`.${selected.id}`).remove();
+        selected.type = "none";
+    }
+}
+
 function select_tool(tool){
     let el = $(tool);
     reset_selections($("#shapes"));
     reset_selections($("#transforms"));
     
     el.find("a").addClass("selected");
-    change_mesh_created("none");
+
+    selected.type="none";
 
     //transformaiton scale
     $("#transformationbox").children().each((_i,e)=>{
@@ -18,24 +64,7 @@ function select_tool(tool){
 }
 
 
-/**
- * 
- * @param {stinrg|HTMLElement}e
- */
-function select_mesh(e){
-    let el = $(e);
-    reset_selections($("#shapes"));
-    reset_selections($("#transforms"));
 
-    if(selected.type === e.className){
-        change_mesh_created("none");
-        selected.isNew = false;
-    }else{
-        change_mesh_created(e.className);
-        el.find("a").addClass("selected");
-        selected.isNew = true;
-    }
-}
 
 function reset_selections(el) {
     $(el).children().each((_i,e)=>{
