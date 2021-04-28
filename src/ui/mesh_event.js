@@ -1,16 +1,16 @@
-function update_selected(name){
-    selected.name = name;
-    if(name !== "none"){
-        selected.id = create_mesh(name);
+function update_selected(type){
+    selected.type = type;
+    if(type !== "none"){
+        selected.id = create_mesh(type);
         if(selected.id){
             selected.mesh = m_mesh.get(selected.id);
         }
     }
 }
 
-function create_mesh(name,attribs){
-    console.log("new mesh: " + name);
-    switch(name){
+function create_mesh(type,attribs){
+    console.log("new mesh: " + type);
+    switch(type){
         case "line":
             return m_mesh.add(new Line(attribs));
         case "triangle":
@@ -20,13 +20,13 @@ function create_mesh(name,attribs){
         case "circle":
             return m_mesh.add(new Circle(attribs));
         case "curve":
-            return null;
+            return m_mesh.add(new Curve(attribs));
         case "polyline":
             return m_mesh.add(new Polyline(attribs));
         case "polygon":
             return m_mesh.add(new Polygon(attribs));
         default:
-            console.warn("create_shape() Warn: Unknown shape name " + name);
+            console.warn("create_shape() Warn: Unknown shape type " + type);
             return null;
     }
 }

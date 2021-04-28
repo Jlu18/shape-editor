@@ -1,7 +1,7 @@
 function select_mesh(e){
     let el = $(e);
     reset_selections(el.parent().get(0));
-    if(selected.name === e.className){
+    if(selected.type === e.className){
         update_selected("none");
     }else{
         update_selected(e.className);

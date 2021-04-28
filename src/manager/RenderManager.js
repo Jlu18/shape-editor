@@ -30,10 +30,16 @@ class Renderer{
             m_shader.bindAttrib(m.vid,0,3,gl.FLOAT);//position
             this.bindUniform("MAT4","uMatrix",m.matrix)
             this.bindUniform("VEC4","uColor",m.color); //color
-            //gl.drawArrays(gl.TRIANGLES,0,m.len);
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.iid);
-            gl.drawElements(type,m.ilen,gl.UNSIGNED_SHORT,0);
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+            
+            if(m.type === "curve"){
+                gl.drawArrays(gl.LINE_STRIP,0,m.vlen);
+            }else{
+                if(m.ipts.length >= 2){
+                    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.iid);
+                    gl.drawElements(type,m.ipts.length,gl.UNSIGNED_SHORT,0);
+                    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+                }
+            }
         });
     }
     findUniform(locs){

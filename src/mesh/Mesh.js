@@ -52,8 +52,7 @@ class Triangle extends Mesh {
               0,-13.48, 0
         ];
         this.ipts = [0,1,2];
-        this.vlen = 3;
-        this.ilen = 3;
+        this.vlen = this.vpts.length/3;
         this.setValues(attribs);
         this.init();
     }
@@ -70,7 +69,6 @@ class Rectangle extends Mesh {
             2,3,0
         ];
         this.vlen = 4;
-        this.ilen = 6;
         this.setValues(attribs);
         this.vpts = this.createpts(this.width,this.height);
         this.init();
@@ -97,8 +95,7 @@ class Polygon extends Mesh{
         const val = this.radius_based_polygon(this.center,this.radius,this.edgeCnt);
         this.vpts = val.vpts;
         this.ipts = val.ipts; 
-        this.vlen = this.vpts.length/2;
-        this.ilen = this.ipts.length;
+        this.vlen = this.vpts.length/3;
 
         this.init();
     }
@@ -140,9 +137,8 @@ class Line extends Mesh{
         this.vpts = [
             0,0,0,
         ];
-        this.ipts=[0,1];
-        this.vlen = 1;
-        this.ilen = 1;
+        this.ipts=[0];
+        this.vlen = this.vpts.length/3;
         this.setValues(attribs);
         this.init();
     }
@@ -155,10 +151,11 @@ class Line extends Mesh{
     newPts(x,y){
         if(this.vlen < 2){
             this.movePts(x,y);
-            this.vlen++;
-            this.ilen++;
             this.vpts.push(x,y,0);
+            this.ipts.push(1);
             this.bindData(gl.ARRAY_BUFFER,this.vid,new Float32Array(this.vpts));
+            this.bindData(gl.ELEMENT_ARRAY_BUFFER,this.iid,new Uint16Array(this.ipts));
+            this.vlen++;
         }else{
             this.done = true;
         }
@@ -169,14 +166,72 @@ class Polyline extends Line{
     constructor(attribs){
         super(attribs);
         this.type = "polyline";
+        this.ipts = [];
     }
     newPts(x,y){
         this.movePts(x,y);
         this.vpts.push(x,y,0);
         this.bindData(gl.ARRAY_BUFFER,this.vid,new Float32Array(this.vpts));
-        this.ipts.push(this.vlen,this.vlen+1);
+        this.ipts.push(this.vlen-1,this.vlen);
         this.bindData(gl.ELEMENT_ARRAY_BUFFER,this.iid,new Uint16Array(this.ipts));
-        this.ilen += 2;
-        this.vlen += 1;
+        this.vlen++;
+    }
+}
+
+//TODO change it to mesh
+class Curve extends Mesh{
+    constructor(attribs){
+        super();
+        this.type = "curve";
+        this.cpts = [
+             0,  0, 0,
+            20, 50,0,
+            40,50,0,
+            100, 100,0,
+        ];
+        this.seg = 100;
+        //define vbo
+        this.createCurve();
+        this.init();
+    }
+    init(){
+        if(this.vpts){
+            //create position buffer id
+            if(!this.vid){
+                this.vid = gl.createBuffer();              //VBO ID
+            }
+            this.bindData(gl.ARRAY_BUFFER,this.vid,new Float32Array(this.vpts));
+        }
+    }
+    createCurve(){
+        const p0 = this.cpts.slice(0,3);
+        const p1 = this.cpts.slice(3,6);
+        const p2 = this.cpts.slice(6,9);
+        const p3 = this.cpts.slice(9,12);
+        
+        let x = p0[0];
+        let y = p0[1];
+
+        let t = 0;
+        const delta = 1/this.seg;
+
+        const pts = [];
+    
+        pts.push(x,y,0);
+    
+        for(i = 1; i < this.seg; i++){
+            t += delta;
+            const t2 = t*t;
+            const t3 = t2*t;
+    
+            const q1 = (1-t);
+            const q2 = q1*q1;
+            const q3 = q2*q1;
+            x = q3*p0[0] + (3*t*q2)*p1[0] + (3*t2*q1)*p2[0] + t3*p3[0];
+            y = q3*p0[1] + (3*t*q2)*p1[1] + (3*t2*q1)*p2[1] + t3*p3[1];
+            pts.push(x,y,0);
+        }
+        this.vlen = pts.length/3;
+        this.vpts = pts;
     }
 }

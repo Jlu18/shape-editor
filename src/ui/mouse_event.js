@@ -3,34 +3,34 @@ function mousedown(e){
 }
 
 function mousedclick(e){
-    if(selected.name === "polyline"){
-        update_selected(selected.name);
+    if(selected.type === "polyline"){
+        update_selected(selected.type);
     }
 }
 
 function mouseup(e){
     //left click
-    if(e.button === 0){
-        if(selected.name !== "none"){
-            if(selected.mesh.isLine){
-                selected.mesh.newPts(e.offsetX,e.offsetY);
-            }
+    if(e.button === 0 && selected.type !== "none"){
+        if(selected.mesh.isLine){
+            selected.mesh.newPts(e.offsetX,e.offsetY);
             if(selected.mesh.done){
-                update_selected(selected.name);//,{matrix:moveto(identity(),[e.offsetX,e.offsetY])}
+                update_selected(selected.type);//,{matrix:moveto(identity(),[e.offsetX,e.offsetY])}
             }
+        }else{
+            update_selected(selected.type,{matrix:moveto(identity(),[e.offsetX,e.offsetY,0])});
         }
-    }else if(e.button === 2){
-        if(selected.name === "line" && selected.mesh.vlen < 2){
-            m_mesh.delete(selected.id);
-        }
+    }else if(e.button === 2 && selected.type !== "none"){
+        m_mesh.delete(selected.id);
+        update_selected(selected.type);
     }
 }
 
 function mousemove(e){
-    if(selected.mesh){
+    if(selected.type !== "none"){
         if(selected.mesh.isLine){
             selected.mesh.movePts(e.offsetX,e.offsetY);
         }else{
+            console.log("mouse event");
             selected.mesh.matrix = moveto(selected.mesh.matrix,[e.offsetX,e.offsetY,0]);
         }
     }
@@ -63,7 +63,6 @@ function pointInPolygon(ppts,n,pt){
 
         if(intersect) return true;
     }
-
     return false;
 }
 

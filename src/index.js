@@ -11,7 +11,7 @@ let m_mesh;
 let m_shader;
 let m_renderer;
 let selected = {
-    name:"none",
+    type:"none",
     id:null,
     mesh:null
 };
