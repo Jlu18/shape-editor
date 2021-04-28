@@ -31,17 +31,17 @@
     
 }
 
-function add_mesh(id){
-    $("#meshes").append(`<li class="${id}"><a href="#"> ${id} </a></li>`);
-    $(`.${id}`).click(e=>{select_exist(e.currentTarget);});
-}
-
 function remove_mesh(){
     if(selected.type === "exist"){
         m_mesh.delete(selected.id);
-        $(`.${selected.id}`).remove();
         selected.type = "none";
     }
+}
+
+function remove_specific_mesh(id){
+    m_mesh.delete(id);
+    $(`.${id}`).remove();
+    selected.type = "none";
 }
 
 function select_tool(tool){
@@ -89,7 +89,8 @@ function open(){
 
 function read_meshes(obj){
     obj.mesh.forEach(m=>{
-        create_mesh(m.type,m);
+        let el = create_mesh(m.type,m);
+        m_mesh.add(el);
     })
 }
 /**
@@ -143,7 +144,39 @@ function exportImg(){
 }
 
 function undo(){
+    m_undo.pop();
+    let n = m_undo.pop();
+    if(n){
+        m_mesh.reset()
+        n.mesh.forEach(m=>{
+            create_mesh(m.type,m);
+        });
+    }
+}
 
+function copy(){
+    if(selected.type === "exist"){
+        copyAttribs = {};
+        let v = Object.values(selected.mesh);
+        Object.keys(selected.mesh).forEach((k,i)=>{
+            copyAttribs[k] = v[i];
+        });
+        delete copyAttribs["uid"];
+        delete copyAttribs["vid"];
+        delete copyAttribs["iid"];
+        copyAttribs.matrix = multiply(copyAttribs.matrix,identity());
+        console.log("copied!")
+    }
+}
+
+function paste(){
+    if(!jQuery.isEmptyObject(copyAttribs)){
+        console.log("pasted!");
+        let el = create_mesh(copyAttribs.type,copyAttribs);
+        if(el != null){
+            m_mesh.add(el);
+        }
+    }
 }
 
 function clear(){

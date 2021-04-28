@@ -7,14 +7,16 @@ class MeshManager{
         this.count = 0;
     }
     add(el){
+        console.log(el);
         if(!(el instanceof Mesh)){
-            console.error("MeshManager add() Error: " + typeof el + "is not Mesh");
+            console.error("MeshManager add() Error: " + typeof el + " is not Mesh");
             return null;
         }
         el.uid = el.type + String(this.count);
         ++this.count;
         this.list[el.uid] = el;
-
+        $("#meshes").append(`<li class="${el.uid}"><a href="#"> ${el.uid} </a></li>`);
+        $(`.${el.uid}`).click(e=>{select_exist(e.currentTarget);});
         return el.uid;
     }
     delete(id){
@@ -22,6 +24,8 @@ class MeshManager{
             console.error("MeshManager delete() Error: " + id + " doesn't exist in list");
             return null;
         }
+        $(`.${id}`).remove();
+        
         gl.deleteBuffer(this.list[id].vid);
         delete this.list[id];
     }

@@ -25,6 +25,7 @@ class Mesh{
             }
             this.bindData(gl.ELEMENT_ARRAY_BUFFER,this.iid,new Uint16Array(this.ipts));
         }
+        this.m =true;
     }
     bindData(t,id,data){
         gl.bindBuffer(t,id);
@@ -161,6 +162,7 @@ class Line extends Mesh{
         }else{
             this.done = true;
         }
+        this.m = true;
     }
 }
 
@@ -178,6 +180,7 @@ class Polyline extends Line{
         this.ipts.push(this.vlen-1,this.vlen);
         this.bindData(gl.ELEMENT_ARRAY_BUFFER,this.iid,new Uint16Array(this.ipts));
         this.vlen++;
+        this.m = true;
     }
 }
 

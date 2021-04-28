@@ -5,6 +5,7 @@ java -jar closure-compiler/compiler.jar^
  --js src/manager/ShaderManager.js^
  --js src/manager/MeshManager.js^
  --js src/manager/RenderManager.js^
+ --js src/manager/UndoManager.js^
  --js src/mesh/Mesh.js^
  --js src/ui/ui_event.js^
  --js src/ui/mesh_event.js^

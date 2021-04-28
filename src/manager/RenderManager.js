@@ -9,7 +9,7 @@ const uniformType = Object.freeze({
 })
 
 class Renderer{
-    constructor(){
+    constructor(list){
         this.uniform = {};
 
         gl.useProgram(m_shader.program);
@@ -23,10 +23,15 @@ class Renderer{
         gl.clearColor(0.2,0.2,0.2,1);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+        let modified = false;
         m_mesh.getMeshNames().forEach(n=>{
             let type = gl.TRIANGLES;
             const m = m_mesh.get(n);
             if(m.isLine)type=gl.LINES;
+            if(m.m) {
+                modified = true;
+                m.m = false;
+            }
             m_shader.bindAttrib(m.vid,0,3,gl.FLOAT);//position
             const tm = multiply(multiply(m.matrix,m.smatrix),m.rmatrix);
             this.bindUniform("MAT4","uMatrix",tm)
@@ -42,6 +47,9 @@ class Renderer{
                 }
             }
         });
+        if(modified){
+            m_undo.push(m_mesh);
+        }
     }
     findUniform(locs){
         locs.forEach(l=>{

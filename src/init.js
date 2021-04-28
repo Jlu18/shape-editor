@@ -23,6 +23,8 @@ $(document).ready(function(){
     m_renderer = new Renderer(m_shader,m_mesh);
     m_renderer.findUniform(["uColor","uProjMatrix","uMatrix"]);
     m_renderer.bindUniform("MAT4","uProjMatrix",m_renderer.projection);
+    m_undo = new UndoManager();
+    m_undo.push(m_mesh);
 
     //Make the toolboxes draggable
     $("#shapebox").draggable({handle: 'h3', containment: '#container'});
@@ -46,7 +48,9 @@ $(document).ready(function(){
     $("li.new"      ).click((e)=>{clear()});
     $("li.save"     ).click((e)=>{save()});
     $("li.export"   ).click((e)=>{exportImg()});
-    $("li.undo"     ).click((e)=>{});
+    $("li.undo"     ).click((e)=>{undo()});
+    $("li.copy"     ).click((e)=>{copy()});
+    $("li.paste"    ).click((e)=>{paste()});
     $("li.delete"   ).click((e)=>{remove_mesh()});
     $("li.move"     ).click((e)=>{select_tool(e.currentTarget)});
     $("li.scale"    ).click((e)=>{select_tool(e.currentTarget)});

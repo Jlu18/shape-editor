@@ -1,7 +1,6 @@
 function mousedclick(e){
     //Done drawing polyline
     if(selected.type === "polyline"){
-        add_mesh(selected.id);
         selected.id = create_mesh(selected.type);
         selected.mesh = m_mesh.get(selected.id);    
     }
@@ -16,13 +15,11 @@ function mouseup(e){
                 selected.mesh.newPts(e.offsetX,e.offsetY);
                 //done drawing line
                 if(selected.mesh.done){
-                    add_mesh(selected.id);
                     selected.id = create_mesh(selected.type);
                     selected.mesh = m_mesh.get(selected.id);
                 }
             }else{
                 let id = create_mesh(selected.type,{matrix:moveto(identity(),[e.offsetX,e.offsetY,0])});
-                add_mesh(id);
             }
         }
         // }else{
