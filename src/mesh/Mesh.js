@@ -62,8 +62,8 @@ class Rectangle extends Mesh {
     constructor(attribs){
         super();
         this.type = "rectangle";
-        this.width = 20;
-        this.height = 20;
+        this.width =50;
+        this.height = 50;
         this.ipts = [
             0,1,2,
             2,3,0

@@ -19,14 +19,17 @@ function identity(){
     ];
 }
 
-function translate(m,p){
-    const t_matrix = [
+function translation(p){
+    return [
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0,
         p[0], p[1], p[2], 1
-    ]
-    return multiply(m,t_matrix);
+    ];
+}
+
+function translate(m,p){
+    return multiply(m,translation(p));
 }
 
 function moveto(m,p){

@@ -16,7 +16,7 @@
         <script src="./compiled/shape_editor.js"></script>
     </head>
     <body style="margin: 0; padding: 0; background-color: ivory;">
-        <div id="container" class="">
+        <div id="container">
             <div>
                 <canvas style="position: absolute;" width="640" height="480" id="canvas">
                     This web browser doesn't support WebGL
@@ -26,37 +26,66 @@
                 <div id=toolbox class="options">
                     <h3>Tools</h3>
                     <ul>
-                        <li class="new">    <a href="#"> New</a></li>
-                        <li class="save">   <a href="#"> Save</a></li>
+                        <li class="new">    <a class="bi-plus-square" href="#"> New</a></li>
+                        <li class="save">   <a class="bi-save-fill"   href="#"> Save</a></li>
                         <li class="open">   
                             <input id="fileinput" type="file" accept="application/json">
                             <label for="fileinput">
                                 <i class="bi-folder2-open"></i>
+                                 Open
                             </label>
                         </input>        
                         </li>
-                        <li class="export"> <a class="bi-image" href="#"></a></li>
-                        <li class="undo">   <a href="#"> Undo</a></li>
+                        <li class="export"> <a class="bi-image" href="#"> Export</a></li>
+                        <li class="undo">   <a class="bi-arrow-counterclockwise" href="#"> Undo</a></li>
+                        <li class="copy">   <a class="bi-clipboard" href="#"> Copy</a></li>
+                        <li class="paste">  <a class="bi-clipboard-plus" href="#"> Paste</a></li>
                     <div id="transforms">
-                        <li class="move">   <a href="#"> Move</a></li>
-                        <li class="scale">  <a href="#"> Scale</a></li>
-                        <li class="rotate"> <a href="#"> Rotate</a></li>
+                        <li class="move">   <a class="bi-arrows-move" href="#"> Move</a></li>
+                        <li class="scale">  <a class="bi-arrows-angle-expand" href="#"> Scale</a></li>
+                        <li class="rotate"> <a class="bi-arrow-repeat" href="#"> Rotate</a></li>
                     </div>
                     </ul> 
                 </div>
                 <div id=shapebox class="options">
                     <h3>Shapes</h3>
                     <ul id="shapes">
-                        <li class="line">     <a href="#">Line</a>     </li>
-                        <li class="triangle"> <a href="#">Triangle</a> </li>
-                        <li class="rectangle"><a href="#">Rectangle</a></li>
-                        <li class="circle">   <a href="#">Circle</a>   </li>
-                        <li class="curve">    <a href="#">Curve</a>    </li>
-                        <li class="polyline"> <a href="#">Polyline</a> </li>
-                        <li class="polygon">  <a href="#">Polygon</a>  </li>
+                        <li class="line">     <a class="bi-dash" href="#"> Line</a>     </li>
+                        <li class="triangle"> <a class="bi-triangle" href="#"> Triangle</a> </li>
+                        <li class="rectangle"><a class="bi-square" href="#"> Rectangle</a></li>
+                        <li class="circle">   <a class="bi-circle" href="#"> Circle</a>   </li>
+                        <li class="curve">    <a class="bi-bezier" href="#"> Curve</a>    </li>
+                        <li class="polyline"> <a class="bi-chevron-up" href="#"> Polyline</a> </li>
+                        <li class="polygon">  <a class="bi-pentagon"href="#"> Polygon</a>  </li>
                     </ul> 
                 </div>
-                
+                <div id=meshbox class="options">
+                    <h3>Shape on canvas</h3>
+                        <ul id=meshes></ul>
+                </div>
+                <div id="transformationbox"  class="options">
+                    <h3>Transformation</h3>
+                    <div class="show" id="move">
+                        <h4>Move</h4>
+                        <input id="move-x" step="1" type="range" orient="vertical" />
+                        <input id="move-y" step="1" type="range" orient="vertical" />
+                    </div>
+                    <div class="hide" id="scale">
+                        <h4>Scale</h4>
+                        <input id="scale-x" min="0" max="10" step="0.1" type="range" orient="vertical" />
+                        <input id="scale-y" min="0" max="10" step="0.1" type="range" orient="vertical" />
+                    </div>
+                    <div class="hide" id="rotate">
+                        <h4>Rotate</h4>
+                        <input id="rotate-x" min="0" max="360" step="1" type="range" orient="vertical" />
+                        <input id="rotate-y" min="0" max="360" step="1" type="range" orient="vertical" />
+                    </div>
+                    <div class="hide" id="curve">
+                        <h4>Control Points</h4>
+                        <input id="ctrl-1" step="1" type="range" orient="vertical" />
+                        <input id="ctrl-2" step="1" type="range" orient="vertical" />
+                    </div>
+                </div>
             </div>
             </div>
     </body>

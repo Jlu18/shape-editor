@@ -2,12 +2,24 @@ function select_tool(tool){
     let el = $(tool);
     reset_selections($("#shapes"));
     reset_selections($("#transforms"));
-
+    
     el.find("a").addClass("selected");
+    change_mesh_created("none");
+
+    //transformaiton scale
+    $("#transformationbox").children().each((_i,e)=>{
+        if($(e).hasClass("show")){
+            $(e).removeClass("show");
+            $(e).addClass("hide");
+        }
+    })
+    $(`#${tool.className}`).removeClass("hide");
+    $(`#${tool.className}`).addClass("show");
 }
 
+
 /**
- * UI Changes when the 
+ * 
  * @param {stinrg|HTMLElement}e
  */
 function select_mesh(e){
@@ -15,9 +27,6 @@ function select_mesh(e){
     reset_selections($("#shapes"));
     reset_selections($("#transforms"));
 
-    if(selected.id){    
-        m_mesh.delete(selected.id);
-    }
     if(selected.type === e.className){
         change_mesh_created("none");
         selected.isNew = false;
@@ -51,7 +60,10 @@ function read_meshes(obj){
         create_mesh(m.type,m);
     })
 }
-
+/**
+ *  Save the meshes in mesh managers into a json file 
+ *      and download to local storage
+ */
 function save() {
     const re = {
         mesh:[]
@@ -68,6 +80,11 @@ function save() {
     a.remove();
 }
 
+/**
+ * Convert Mesh classes into an Object
+ * @param {Mesh} e 
+ * @returns {object}
+ */
 function MeshClassToObject(e){
     const obj = {};
 
@@ -82,8 +99,9 @@ function MeshClassToObject(e){
 
 }
 
-
-
+/**
+ *  Export canvas to a JPEG image 
+ */
 function exportImg(){
     var link = document.createElement('a');
     link.download = 'shape-editor.jpg';
@@ -97,5 +115,9 @@ function undo(){
 }
 
 function clear(){
-    reset_selections();
+    if(!m_mesh.isEmpty()){
+        if(confirm("It seems you scene is not empty, would you want to create new scene?")){
+            m_mesh.reset();
+        }
+    }
 }

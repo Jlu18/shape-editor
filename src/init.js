@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    // window.onbeforeunload = function() {
+    //     return "Do you really want to leave our brilliant application?";
+    //     //if we return nothing here (just calling return;) then there will be no pop-up question at all
+    //     //return;
+    //  };
     // canvas.width = window.innerWidth;
     // canvas.height = window.innerHeight;
     canvas = document.getElementById("canvas");
@@ -22,6 +27,8 @@ $(document).ready(function(){
     //Make the toolboxes draggable
     $("#shapebox").draggable({handle: 'h3', containment: '#container'});
     $("#toolbox").draggable({handle: 'h3', containment: '#container'});
+    $("#meshbox").draggable({handle: 'h3', containment: '#container'});
+    $("#transformationbox").draggable({handle: 'h3', containment: '#container'});
 
     //Shape editor
     $("li.line"     ).click((e)=>{select_mesh(e.currentTarget);});
@@ -34,7 +41,7 @@ $(document).ready(function(){
     //$("li.triangle").find("a").click();
     
     //Tool Editor
-    $("li.new"      ).click((e)=>{});
+    $("li.new"      ).click((e)=>{clear()});
     $("li.save"     ).click((e)=>{save()});
     document.getElementById("fileinput").addEventListener("change", open, false);
     $("li.export"   ).click((e)=>{exportImg()});
@@ -46,6 +53,8 @@ $(document).ready(function(){
     canvas.addEventListener("mousemove",mousemove);
     canvas.addEventListener("mousedown",mousedown);
     canvas.addEventListener("mouseup",mouseup);
+    canvas.addEventListener("mouseenter",mouseenter);
+    canvas.addEventListener("mouseleave",mouseleave);
     canvas.addEventListener("dblclick",mousedclick);
     canvas.addEventListener("contextmenu",(e)=>{e.preventDefault();e.stopPropagation();});
     start(); 

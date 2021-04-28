@@ -1,3 +1,11 @@
+function mouseenter(e){
+
+}
+
+function mouseleave(e){
+
+}
+
 function mousedown(e){
     
 }
@@ -11,22 +19,30 @@ function mousedclick(e){
 function mouseup(e){
     //left click
     if(e.button === 0){
+        //Create shape on the canvas
         if(selected.type !== "none"){
             if(selected.mesh.isLine){
                 selected.mesh.newPts(e.offsetX,e.offsetY);
                 if(selected.mesh.done){
+                    selected.created = true;
                     change_mesh_created(selected.type);//,{matrix:moveto(identity(),[e.offsetX,e.offsetY])}
                 }
             }else{
+                selected.created = true;
                 change_mesh_created(selected.type,{matrix:moveto(identity(),[e.offsetX,e.offsetY,0])});
             }
         }else{
-            //transformation
-            //selectedMesh();
+            //check for the click
+            // for(let n of m_mesh.getMeshNames()){
+            //     let m = m_mesh.get(n);
+            //     if(pointInPolygon(m.vpts,m.vlen,[e.offsetX,e.offsetY],m.matrix)){
+            //         console.log(m.uid + " clicked!");
+            //     }
+            // }
         }
     }else if(e.button === 2 && selected.type !== "none"){
-        m_mesh.delete(selected.id);
-        change_mesh_created(selected.type);
+        change_mesh_created("none");
+        reset_selections($("#shapes"));
     }
 }
 
@@ -49,7 +65,7 @@ function mousemove(e){
  * 
  * @returns {Boolean} true if point intersected with given polygon, false otherwise.
  */
-function pointInPolygon(ppts,n,pt){
+function pointInPolygon(ppts,n,pt,m){
     if(n<3){
         console.error("Error pointInPolygon: Supplied n is not enough.");
         return false;
@@ -58,16 +74,28 @@ function pointInPolygon(ppts,n,pt){
     const x = pt[0];
     const y = pt[1];
 
+    let intersect = false;
+
     for(let i = 0, j = n-1; i < n; j = i++){
-        const xi = ppts[i*3], yi = ppts[i*3+1];
-        const xj = ppts[j*3], yj = ppts[j*3+1];
+        const xit = ppts[i*3], yit = ppts[i*3+1];
+        const xjt = ppts[j*3], yjt = ppts[j*3+1];
 
-        const intersect = ((yi > y) != (yj > y))
-        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        let ai = multiply(translation([xit,yit,0]),m);
+        let aj = multiply(translation([xjt,yjt,0]),m);
 
-        if(intersect) return true;
+        let xi = ai[12], yi = ai[13];
+        let xj = aj[12], yj = aj[13];
+
+        if(((yi >= y) !== (yj >= y)) 
+        && (x <= (xj - xi) * (y - yi) / (yj - yi) + xi)){
+            intersect = !intersect;
+        }
     }
-    return false;
+    return intersect;
+}
+
+function pointOnLine(ppts,n,pt,m){
+
 }
 
 

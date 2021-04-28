@@ -6,6 +6,27 @@ body {
 
 ul {
     list-style-type: none;
+	padding-left:10px;
+}
+
+h3 {
+	padding: 0px;
+	margin:4px;
+}
+
+h4 {
+	padding: 0px;
+	margin-left:8px;
+	margin-right:10px;
+	margin-top:15px;
+	margin-bottom:4px;
+	height:fit-content;
+	width:fit-content;
+
+}
+
+h3:hover{
+	cursor:move;
 }
 
 a.selected{
@@ -18,29 +39,60 @@ a.selected{
     position:absolute;
 	height:100%;
 	width: 100%;
-	min-width:850px;
-	background-color:none;
+	background-color:navajowhite;
 }
 
 #toolbox {
 	top:0px;
 	left:50px;
+	height:250px;
 }
+
 
 #shapebox {
-    top:250px;
+    top:270px;
 	left:50px;
+	height:200px;
 }
 
-#canvas {
-    /*	border:2px solid #cc0000;*/
-	padding:0px;
-	z-index: 0;
-	margin:0px auto;
-	margin-top:105px;
-	position:absolute;
-	left:50%;
-	margin-left:-250px;
+#meshbox {
+	top:0px;
+	left:200px;
+	height:250px;
+}
+
+#transformationbox {
+	top:0px;
+	left:1200px;
+	height:300px;
+	width:220px;
+}
+
+ul#meshes{
+	display: block;
+    z-index: 1;
+    width: inherit;
+    max-height:inherit;
+    overflow-y:auto;
+    overflow-x:hidden;
+    margin: 0px;
+   	padding-left:10px;/*Removing the large whitespace to the left of list items*/
+}
+
+div#transformationbox div {
+	float: left;
+  	width: 50%;
+}
+
+div#meshbox {
+	resize: both;
+	overflow: auto;
+}
+canvas{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
 }
 
 input[type="file"] {
@@ -58,4 +110,22 @@ input[type="file"] {
     margin:140px 30px;
 	border:1px solid rgb(0,0,0);
 	background: rgb(88, 207, 162);
+}
+
+.show {
+	display:block;
+}
+.hide {
+	display:none;
+}
+
+input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 175px;
+	margin-left:5px;
+	margin-top:0px;
+    padding: 0 5px;
 }
