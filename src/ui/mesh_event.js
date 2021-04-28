@@ -1,4 +1,8 @@
-function update_selected(type){
+/**
+ * Change the type of mesh user can instantiate on canvas
+ * @param {string} type 
+ */
+function change_mesh_created(type){
     selected.type = type;
     if(type !== "none"){
         selected.id = create_mesh(type);

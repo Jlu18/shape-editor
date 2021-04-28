@@ -1,11 +1,11 @@
 $(document).ready(function(){
     // canvas.width = window.innerWidth;
     // canvas.height = window.innerHeight;
-    const canvas = document.getElementById("canvas");
+    canvas = document.getElementById("canvas");
     console.log("Canvas size: " + canvas.clientWidth + " " + canvas.clientHeight);
     width = canvas.clientWidth;
     height = canvas.clientHeight;
-    gl = canvas.getContext("webgl");
+    gl = canvas.getContext("webgl",{preserveDrawingBuffer: true});
 
     if(!gl){
         alert("Failed to get webgl context");
@@ -20,8 +20,8 @@ $(document).ready(function(){
     m_renderer.bindUniform("MAT4","uProjMatrix",m_renderer.projection);
 
     //Make the toolboxes draggable
-    $("#shapes").draggable({handle: 'h3', containment: '#container'});
-    $("#tools").draggable({handle: 'h3', containment: '#container'});
+    $("#shapebox").draggable({handle: 'h3', containment: '#container'});
+    $("#toolbox").draggable({handle: 'h3', containment: '#container'});
 
     //Shape editor
     $("li.line"     ).click((e)=>{select_mesh(e.currentTarget);});
@@ -32,6 +32,16 @@ $(document).ready(function(){
     $("li.polyline" ).click((e)=>{select_mesh(e.currentTarget);});
     $("li.polygon"  ).click((e)=>{select_mesh(e.currentTarget);});
     //$("li.triangle").find("a").click();
+    
+    //Tool Editor
+    $("li.new"      ).click((e)=>{});
+    $("li.save"     ).click((e)=>{save()});
+    document.getElementById("fileinput").addEventListener("change", open, false);
+    $("li.export"   ).click((e)=>{exportImg()});
+    $("li.undo"     ).click((e)=>{});
+    $("li.move"     ).click((e)=>{select_tool(e.currentTarget)});
+    $("li.scale"    ).click((e)=>{select_tool(e.currentTarget)});
+    $("li.rotate"   ).click((e)=>{select_tool(e.currentTarget)});
 
     canvas.addEventListener("mousemove",mousemove);
     canvas.addEventListener("mousedown",mousedown);

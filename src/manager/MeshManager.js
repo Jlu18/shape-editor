@@ -44,4 +44,7 @@ class MeshManager{
             this.delete(n);
         }
     }
+    isEmpty(){
+        return (Object.keys(this.list).length === 0);
+    }
 }

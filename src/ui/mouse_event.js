@@ -4,24 +4,29 @@ function mousedown(e){
 
 function mousedclick(e){
     if(selected.type === "polyline"){
-        update_selected(selected.type);
+        change_mesh_created(selected.type);
     }
 }
 
 function mouseup(e){
     //left click
-    if(e.button === 0 && selected.type !== "none"){
-        if(selected.mesh.isLine){
-            selected.mesh.newPts(e.offsetX,e.offsetY);
-            if(selected.mesh.done){
-                update_selected(selected.type);//,{matrix:moveto(identity(),[e.offsetX,e.offsetY])}
+    if(e.button === 0){
+        if(selected.type !== "none"){
+            if(selected.mesh.isLine){
+                selected.mesh.newPts(e.offsetX,e.offsetY);
+                if(selected.mesh.done){
+                    change_mesh_created(selected.type);//,{matrix:moveto(identity(),[e.offsetX,e.offsetY])}
+                }
+            }else{
+                change_mesh_created(selected.type,{matrix:moveto(identity(),[e.offsetX,e.offsetY,0])});
             }
         }else{
-            update_selected(selected.type,{matrix:moveto(identity(),[e.offsetX,e.offsetY,0])});
+            //transformation
+            //selectedMesh();
         }
     }else if(e.button === 2 && selected.type !== "none"){
         m_mesh.delete(selected.id);
-        update_selected(selected.type);
+        change_mesh_created(selected.type);
     }
 }
 
@@ -30,7 +35,6 @@ function mousemove(e){
         if(selected.mesh.isLine){
             selected.mesh.movePts(e.offsetX,e.offsetY);
         }else{
-            console.log("mouse event");
             selected.mesh.matrix = moveto(selected.mesh.matrix,[e.offsetX,e.offsetY,0]);
         }
     }

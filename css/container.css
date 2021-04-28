@@ -22,12 +22,12 @@ a.selected{
 	background-color:none;
 }
 
-#tools {
+#toolbox {
 	top:0px;
 	left:50px;
 }
 
-#shapes {
+#shapebox {
     top:250px;
 	left:50px;
 }
@@ -41,6 +41,14 @@ a.selected{
 	position:absolute;
 	left:50%;
 	margin-left:-250px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#fileinput + label {
+	cursor:pointer;
 }
 
 .options {

@@ -33,12 +33,12 @@ class Mesh{
         if(!attribs){
             return;
         }
-        for(let key in attribs){
+        Object.keys(attribs).forEach(key=>{
             // if(this[key]===undefined){
             //     console.warn("Mesh Warn: " + key + " is not param of Mesh");
             // }
             this[key] = attribs[key];
-        }
+        });
     }
 }
 
@@ -167,6 +167,7 @@ class Polyline extends Line{
         super(attribs);
         this.type = "polyline";
         this.ipts = [];
+        this.setValues(attribs);
     }
     newPts(x,y){
         this.movePts(x,y);
