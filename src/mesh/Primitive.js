@@ -90,6 +90,8 @@ class Polygon extends Mesh{
         this.position.points = points.position;
         this.position.length = points.position.length/3;
         this.index.points    = points.index; 
+
+        this.m = true;
     }
     radius_based_polygon(center,radius,edgesCnt){
         //calculate the vpts based on origin and radius
@@ -158,6 +160,7 @@ class Line extends Mesh{
         pts[i*3 + 1] = vec3.y;
         pts[i*3 + 2] = vec3.z;
         this.bindBuffer();
+        this.m = true;
     }   
     clone(){
         return new Line().copy(this);
@@ -180,6 +183,7 @@ class Polyline extends Line{
         this.setAttribute("lineCnt",count+1);
         this.bindBuffer();
         this.bindIndexBuffer();
+        this.m = true;
         return this.attributes["lineCnt"];
     }
     clone(){
@@ -219,6 +223,7 @@ class Curve extends Polyline{
             this.bindBuffer();
             this.bindIndexBuffer();
             this.bindCtrlPtsBuffer();
+            this.m = true;
         }else{
             super.newLine(vec3);
         }
@@ -230,6 +235,7 @@ class Curve extends Polyline{
             this.bindBuffer();
             this.bindIndexBuffer();
             this.bindCtrlPtsBuffer();
+            this.m = true;
         }else{
             super.movePts(i,vec3);
         }

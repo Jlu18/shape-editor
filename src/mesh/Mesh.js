@@ -12,15 +12,18 @@ class Mesh{
         };
         this.position = {};
         this.index = {};
+        this.m = true;
     }
     setAttribute(name,value){
         this.attributes[name] = value;
+        this.m = true;
     }
     getAttribute(name){
         return this.attributes[name];
     }
     applyMatrix(name,mat){
         this.attributes[name] = multiply(this.attributes[name],mat);
+        this.m = true;
     }
     //use this for center the mesh **NOT** transformation
     updatePosition(matrix){
@@ -33,6 +36,7 @@ class Mesh{
             pts[i*3 + 1] = re[1];
             pts[i*3 + 2] = re[2];
         }
+        this.m = true;
     }
     clone(){
         return new Mesh().copy(this);
@@ -62,6 +66,7 @@ class Mesh{
                 this.attributes[n] = attribute;
             }
         }
+        this.m = true;
         return this;
     }
     delete(){
@@ -71,6 +76,7 @@ class Mesh{
         this.attributes = {};
         this.position = {};
         this.index = {};
+        this.m = true;
     }
     bindBuffer(){
         const position = this.position;
@@ -83,6 +89,7 @@ class Mesh{
             gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(position.points),gl.STATIC_DRAW);
             gl.bindBuffer(gl.ARRAY_BUFFER,null);
         }
+        this.m = true;
     }
     bindIndexBuffer(){
         const index = this.index;
@@ -94,5 +101,6 @@ class Mesh{
             gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(index.points),gl.STATIC_DRAW);
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,null);
         }
+        this.m = true;
     }
 }

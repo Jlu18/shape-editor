@@ -75,10 +75,12 @@ function exportImg(){
 function undo(){
     m_undo.pop();
     let n = m_undo.pop();
+    console.log(n);
     if(n){
         m_mesh.reset()
         n.mesh.forEach(m=>{
             let id = m_mesh.create(m.type);
+            m_mesh.get(id).copy(m);
         });
     }
 }
@@ -94,7 +96,7 @@ function paste(){
         const m = m_mesh.get(n).clone();
         m.applyMatrix("p_matrix",translation([5,5,0]));
         m.bindBuffer();
-        m.bindIndex();
+        m.bindIndexBuffer();
         let nn = m_mesh.add(m);
         m_select.add(nn);
     })

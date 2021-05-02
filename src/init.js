@@ -89,6 +89,9 @@ $(document).ready(function(){
                 case "Escape":
                     m_ui.select("none");
                     break;
+                case "Delete":
+                    m_select.list.forEach(n=>{m_mesh.delete(n);});
+                    break;
             }
         }
     })

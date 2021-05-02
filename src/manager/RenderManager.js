@@ -27,6 +27,7 @@ class Renderer{
         gl.clearColor(...this.b_color.toArray());
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+        let modified = false;
         m_mesh.getAllNames().forEach(name=>{
             let mode = gl.TRIANGLES;
             const mesh = m_mesh.get(name);
@@ -41,6 +42,11 @@ class Renderer{
             const p_m = mesh.getAttribute("p_matrix");
             const r_m = mesh.getAttribute("r_matrix");
             const s_m = mesh.getAttribute("s_matrix");
+
+            if(mesh.m){
+                modified = true;
+                mesh.m = false;
+            }
             
             if(m_select.exist(name)){
                 /**
@@ -83,9 +89,10 @@ class Renderer{
             }
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
         });
-        // if(modified){
-        //     m_undo.push(m_mesh);
-        // }
+        if(modified){
+            console.log("modified");
+            m_undo.push(m_mesh);
+        }
     }
     resetMatrix(){
         this.p_matrix = identity();

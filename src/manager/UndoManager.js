@@ -12,7 +12,9 @@ class UndoManager {
         this.snapshot.push(JSON.stringify(re));
     }
     pop(){
-        if(this.snapshot.length < 1) return null;
+        if(this.snapshot.length <= 1) {
+            return JSON.parse(this.snapshot[0]);
+        }
         return JSON.parse(this.snapshot.pop());
     }
 }
