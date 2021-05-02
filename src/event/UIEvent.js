@@ -3,7 +3,6 @@
 File Tools
 
 */
-
 function open(){
     const fileList = this.files;
     reader = new FileReader();
@@ -17,20 +16,26 @@ function open(){
 function read_meshes(obj){
     obj.mesh.forEach(m=>{
         let id = m_mesh.create(m.type);
-        let mesh = m_mesh.get(id)
-        mesh.copy(m);
+
+        delete m.position.id;
+        delete m.index.id;
+        if(m.ctrlPts){
+            delete m.ctrlPts.id;
+        }
+        m_mesh.get(id).copy(m);
     })
 }
 /**
  *  Save the meshes in mesh managers into a json file 
  *      and download to local storage
  */
-function save() {
+function saveJSON() {
     const re = {
         mesh:[]
     };
     m_mesh.getAllMeshes().forEach(m=>{
-        re.mesh.push(MeshClassToObject(m));
+        let obj = MeshClassToObject(m);
+        re.mesh.push(obj);
     })
     let a = document.createElement("a");
     let file = new Blob([JSON.stringify(re)], {type: "text/json"});
@@ -52,14 +57,8 @@ function MeshClassToObject(e){
         obj[k] = e[k];
     });
     //Don't need unique ids
-    delete obj["uid"];
-    delete obj["vid"];
-    delete obj["iid"];
     return obj; 
-
 }
-
-console.log(JSON.stringify(new Vector3(1,2,3)));
 
 /**
  *  Export canvas to a JPEG image 
@@ -75,7 +74,6 @@ function exportImg(){
 function undo(){
     m_undo.pop();
     let n = m_undo.pop();
-    console.log(n);
     if(n){
         m_mesh.reset()
         n.mesh.forEach(m=>{

@@ -1,7 +1,6 @@
 function mousedclick(_e){
     //Done drawing polyline
     if(line.creating && line.el.getAttribute("lineCnt") >= 2){
-        console.log("stop");
         line.creating = false;
         line.el = null;
     }

@@ -43,7 +43,7 @@ $(document).ready(function(){
     //Tool Editor
     document.getElementById("fileinput").addEventListener("change", open);
     $("li.new"      ).click((e)=>{clear()});
-    $("li.save"     ).click((e)=>{save()});
+    $("li.save"     ).click((e)=>{saveJSON()});
     $("li.export"   ).click((e)=>{exportImg()});
     $("li.undo"     ).click((e)=>{undo()});
     $("li.copy"     ).click((e)=>{copy()});

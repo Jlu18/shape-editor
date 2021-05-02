@@ -43,7 +43,6 @@ class Mesh{
     }
     copy(source){
         this.type = source.type;
-
         if(source.index){
             this.index.points = new Array(...source.index.points);
         }
@@ -56,14 +55,16 @@ class Mesh{
         const attributes = source.attributes;
         for(const n in attributes){
             const attribute = attributes[n];
-            if(attribute.clone){
-                this.attributes[n] = attribute.clone();
-            }else if(Array.isArray(attribute)){
-                this.attributes[n] = new Array(...attribute);
-            }else if(attribute.vector){
-                this.attributes[n] = new Vector4(attribute.x,attribute.y,attribute.z,attribute.w?attribute.w:1);
-            }else{ 
-                this.attributes[n] = attribute;
+            if(attribute){
+                if(attribute.clone){
+                    this.attributes[n] = attribute.clone();
+                }else if(Array.isArray(attribute)){
+                    this.attributes[n] = new Array(...attribute);
+                }else if(attribute.vector){
+                    this.attributes[n] = new Vector4(attribute.x,attribute.y,attribute.z,attribute.w?attribute.w:1);
+                }else{ 
+                    this.attributes[n] = attribute;
+                }
             }
         }
         this.m = true;
@@ -89,7 +90,6 @@ class Mesh{
             gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(position.points),gl.STATIC_DRAW);
             gl.bindBuffer(gl.ARRAY_BUFFER,null);
         }
-        this.m = true;
     }
     bindIndexBuffer(){
         const index = this.index;
@@ -101,6 +101,5 @@ class Mesh{
             gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(index.points),gl.STATIC_DRAW);
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,null);
         }
-        this.m = true;
     }
 }

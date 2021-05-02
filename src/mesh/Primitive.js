@@ -160,10 +160,15 @@ class Line extends Mesh{
         pts[i*3 + 1] = vec3.y;
         pts[i*3 + 2] = vec3.z;
         this.bindBuffer();
-        this.m = true;
     }   
     clone(){
         return new Line().copy(this);
+    }
+    copy(source){
+        super.copy(source);
+        this.bindBuffer();
+        this.bindIndexBuffer();
+        return this;
     }
 }
 
@@ -183,11 +188,16 @@ class Polyline extends Line{
         this.setAttribute("lineCnt",count+1);
         this.bindBuffer();
         this.bindIndexBuffer();
-        this.m = true;
         return this.attributes["lineCnt"];
     }
     clone(){
         return new Polyline().copy(this);
+    }
+    copy(source){
+        super.copy(source);
+        this.bindBuffer();
+        this.bindIndexBuffer();
+        return this;
     }
 }
 
@@ -216,6 +226,20 @@ class Curve extends Polyline{
     clone(){
         return new Curve().copy(this);
     }
+    copy(source){
+        super.copy(source);
+        if(source.ctrlPts){
+            this.ctrlPts.points = new Array(...source.ctrlPts.points);
+            source.ctrlPts.cPoints.forEach(p=>{
+                this.ctrlPts.cPoints.push(new Vector3(p.x,p.y,p.z));
+            });
+            this.createCurve();
+            this.bindBuffer();
+            this.bindIndexBuffer();
+            this.bindCtrlPtsBuffer();
+        }
+        return this;
+    }
     newLine(vec3){
         if(this.ctrlPts.cPoints.length > 2){
             this.createCurve();
@@ -223,7 +247,6 @@ class Curve extends Polyline{
             this.bindBuffer();
             this.bindIndexBuffer();
             this.bindCtrlPtsBuffer();
-            this.m = true;
         }else{
             super.newLine(vec3);
         }
@@ -235,7 +258,6 @@ class Curve extends Polyline{
             this.bindBuffer();
             this.bindIndexBuffer();
             this.bindCtrlPtsBuffer();
-            this.m = true;
         }else{
             super.movePts(i,vec3);
         }

@@ -1,10 +1,12 @@
 #container{
 	height:100%;
-	width:20%;
+	width: 100%;
 	display: flex;
+	position:absolute;
+	background-color:navajowhite;
 }
 .column {
-    width: 10%;
+    width: 12%;
 	padding: 10px;
 	display: table-cell;
 	border-style: dashed;
@@ -53,15 +55,6 @@ a:visited {color:#5d075d;} /* Visited link    */
 a:hover {color:#ff8400;}   /* Mouse over link */
 a:active {color:#0000FF;}  /* Selected link   */
 
-
-#container{
-    position:absolute;
-	height:100%;
-	width: 100%;
-	background-color:navajowhite;
-}
-
-
 #fileinput + label {
 	cursor:pointer;
 	color: #5d075d;
@@ -73,12 +66,4 @@ a:active {color:#0000FF;}  /* Selected link   */
 
 input[type="file"] {
     display: none;
-}
-
-
-.show {
-	display:block;
-}
-.hide {
-	display:none;
 }
