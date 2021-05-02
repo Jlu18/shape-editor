@@ -5,9 +5,9 @@ class MeshManager{
     constructor(){
         this.list = new Object();
         this.count = 0;
+        this.selected = [];
     }
     add(el){
-        console.log(el);
         if(!(el instanceof Mesh)){
             console.error("MeshManager add() Error: " + typeof el + " is not Mesh");
             return null;
@@ -15,8 +15,6 @@ class MeshManager{
         el.uid = el.type + String(this.count);
         ++this.count;
         this.list[el.uid] = el;
-        $("#meshes").append(`<li class="${el.uid}"><a href="#"> ${el.uid} </a></li>`);
-        $(`.${el.uid}`).click(e=>{select_exist(e.currentTarget);});
         return el.uid;
     }
     delete(id){
@@ -24,9 +22,7 @@ class MeshManager{
             console.error("MeshManager delete() Error: " + id + " doesn't exist in list");
             return null;
         }
-        $(`.${id}`).remove();
-        
-        gl.deleteBuffer(this.list[id].vid);
+        this.list[id].delete();
         delete this.list[id];
     }
     /**
@@ -41,8 +37,11 @@ class MeshManager{
         }
         return this.list[id];
     }
-    getMeshNames(){
+    getAllNames(){
         return Object.keys(this.list);
+    }
+    getAllMeshes(){
+        return Object.values(this.list);
     }
     reset(){
         for(let n in this.list){
@@ -52,4 +51,28 @@ class MeshManager{
     isEmpty(){
         return (Object.keys(this.list).length === 0);
     }
+    create(type){
+        switch(type){
+            case "triangle":
+                return this.add(new Triangle(
+                    new Vector3(-10,0,0),new Vector3(0,-15,0),new Vector3(10,0,0)
+                ));
+            case "rectangle":
+                return this.add(new Rectangle(15,15));
+            case "polygon":
+                return this.add(new Polygon(new Vector3(0,0,0),12,5));
+            case "circle":
+                return this.add(new Circle(new Vector3(0,0,0),12));
+            case "line":
+                return this.add(new Line());
+            case "curve":
+                return this.add(new Curve());
+            case "polyline":
+                return this.add(new Polyline());
+            default:
+                console.error("Meshmanger Create Error: Unknown shape type " + type);
+                return null;
+        }
+    }
+
 }

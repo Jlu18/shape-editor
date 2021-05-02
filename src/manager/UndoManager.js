@@ -6,8 +6,7 @@ class UndoManager {
         const re = {
             mesh:[]
         };
-        m_mesh.getMeshNames().forEach(n=>{
-            let m = m_mesh.get(n);
+        m_mesh.getAllMeshes().forEach(m=>{
             re.mesh.push(MeshClassToObject(m));
         })
         this.snapshot.push(JSON.stringify(re));

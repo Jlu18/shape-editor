@@ -124,30 +124,32 @@ function multiply(m, n){
 }
 
 
-function multiplyM(m,i,n,j){
-    const result = [];
-
-    for(let k = 0; k < i; k++){
-        for(let l = 0; l < j; l++){
-            // console.log( m[k*i] + " " + m[k*i+1] + " " + m[k*i+2] + " " + m[k*i+3]);
-            // console.log( n[l] + " " + n[l + j] + " " + n[l + j*2] + " " + n[l + j*3]);
-            const s = m[k*i]*n[l] + m[k*i+1]*n[l + j] + m[k*i+2]*n[l + j*2] + m[k*i+3]*n[l + j*3];
-            result.push(s);
-        }
+function MultiplyMatrix4( m ,vec) {
+    if(vec.length !== 4){
+        console.warn("MultiplyMatrix4 Error, vec length is not 4");
+        return m;
     }
-    return result;
+
+    const x = vec[0], y = vec[1], z = vec[2], w = vec[3];
+
+    const nx = ( m[ 0 ] * x + m[ 4 ] * y + m[  8 ] * z + m[ 12 ] ) * w;
+    const ny = ( m[ 1 ] * x + m[ 5 ] * y + m[  9 ] * z + m[ 13 ] ) * w;
+    const nz = ( m[ 2 ] * x + m[ 6 ] * y + m[ 10 ] * z + m[ 14 ] ) * w;
+    const nw = ( m[ 3 ] * x + m[ 7 ] * y + m[ 11 ] * z + m[ 15 ] ) * w;
+
+    return [nx,ny,nz,nw];
 }
 
+// function multiplyM(m,i,n,j){
+//     const result = [];
 
-//testing
-// const s = [
-//     1,0,0,0,
-//     0,1,0,0,
-//     0,0,1,0,
-//     0,0,0,1
-// ]
-
-// const n = [
-//     1,2,3,4,
-// ]
-// console.log(multiplyM(s,4,n,1));
+//     for(let k = 0; k < i; k++){
+//         for(let l = 0; l < j; l++){
+//             // console.log( m[k*i] + " " + m[k*i+1] + " " + m[k*i+2] + " " + m[k*i+3]);
+//             // console.log( n[l] + " " + n[l + j] + " " + n[l + j*2] + " " + n[l + j*3]);
+//             const s = m[k*i]*n[l] + m[k*i+1]*n[l + j] + m[k*i+2]*n[l + j*2] + m[k*i+3]*n[l + j*3];
+//             result.push(s);
+//         }
+//     }
+//     return result;
+// }

@@ -1,12 +1,31 @@
-body {
-	overflow: auto; 
-	height: 1%;
-	min-width:850px;
+#container{
+	height:100%;
+	width:20%;
+	display: flex;
 }
+.column {
+    width: 10%;
+	padding: 10px;
+	display: table-cell;
+	border-style: dashed;
+	border-color:black;
+	background-color: aquamarine;
+}
+
+canvas{
+	display: table-cell;
+	border-style: dashed;
+	border-color:black;
+}
+
 
 ul {
     list-style-type: none;
 	padding-left:10px;
+}
+
+ul li {
+	margin: 0 0 10px 0;
 }
 
 h3 {
@@ -25,15 +44,15 @@ h4 {
 
 }
 
-h3:hover{
-	cursor:move;
+a.selected{
+    background-color: rgb(226, 88, 88);
 }
 
-a.selected{
-	pointer-events: none;
-    background-color: rgb(255, 0, 0);
-	user-select: none;
-}
+a {color:#5d075d;}         /* Unvisited link  */
+a:visited {color:#5d075d;} /* Visited link    */
+a:hover {color:#ff8400;}   /* Mouse over link */
+a:active {color:#0000FF;}  /* Selected link   */
+
 
 #container{
     position:absolute;
@@ -42,90 +61,24 @@ a.selected{
 	background-color:navajowhite;
 }
 
-#toolbox {
-	top:0px;
-	left:50px;
-	height:250px;
-}
 
-
-#shapebox {
-    top:270px;
-	left:50px;
-	height:200px;
+#fileinput + label {
+	cursor:pointer;
+	color: #5d075d;
+	text-decoration: underline;
 }
-
-#meshbox {
-	top:0px;
-	left:200px;
-	height:250px;
-}
-
-#transformationbox {
-	top:0px;
-	left:1100px;
-	height:300px;
-	width:250px;
-}
-
-ul#meshes{
-	display: block;
-    z-index: 1;
-    width: inherit;
-    max-height:inherit;
-    overflow-y:auto;
-    overflow-x:hidden;
-    margin: 0px;
-   	padding-left:10px;/*Removing the large whitespace to the left of list items*/
-}
-
-div#transformationbox div {
-	float: left;
-  	width: 50%;
-}
-
-div#meshbox {
-	resize: both;
-	overflow: auto;
-}
-canvas{
-	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);  
+#fileinput:hover + label{
+	color:#ff4492;
 }
 
 input[type="file"] {
     display: none;
 }
 
-#fileinput + label {
-	cursor:pointer;
-}
-
-.options {
-    position:absolute;
-	padding-bottom:0px;
-	width: 110px;
-    margin:140px 30px;
-	border:1px solid rgb(0,0,0);
-	background: rgb(88, 207, 162);
-}
 
 .show {
 	display:block;
 }
 .hide {
 	display:none;
-}
-
-input[type=range][orient=vertical]
-{
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
-    width: 8px;
-    height: 175px;
-	margin-left:5px;
-	margin-top:0px;
-    padding: 0 5px;
 }

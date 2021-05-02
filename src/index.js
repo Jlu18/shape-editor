@@ -10,16 +10,11 @@ let height;
 */
 let m_mesh;
 let m_shader;
+let m_dot_shader;
 let m_renderer;
 let m_undo;
-let selected = {
-    //["exist",none","line","triangle","rectangle","circle","curve","polyline","polygon"]
-    type:"none",
-    created: false,
-    isLine:false
-};
-
-let copyAttribs = {};
+let m_select;
+let m_ui;
 
 function start(){
     console.log("start");
