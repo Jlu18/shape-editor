@@ -83,6 +83,9 @@ $(document).ready(function(){
                 case "v":
                     paste();
                     break;
+                case "z":
+                    undo();
+                    break;
             }
         }else{
             switch(e.key){
